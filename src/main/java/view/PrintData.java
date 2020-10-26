@@ -1,9 +1,5 @@
 package view;
 
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import model.Product;
 
 import java.io.File;
@@ -18,11 +14,44 @@ public class PrintData {
         File outFile = new File(outDirName,fileName);
         try {
             Writer writer = new FileWriter(outFile);
-            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-            beanToCsv.write(beans);
+            writer.write("$customergroup = customergroup");
+            writer.write(System.lineSeparator());
+            writer.write("$defaultPassword = asasas");
+            writer.write(System.lineSeparator());
+            writer.write("# Sample customers");
+            writer.write(System.lineSeparator());
+            writer.write("INSERT_UPDATE Customer;" +
+                    " originalUid[unique = true];" +
+                    " uid[unique = true];" +
+                    " title(code);" +
+                    " name;" +
+                    " description;" +
+                    " sessionLanguage(isocode);" +
+                    " sessionCurrency(isocode);" +
+                    " groups(uid);" +
+                    " password[default = $defaultPassword];" +
+                    " customerID;");
+            writer.write(System.lineSeparator());
+
+            for (Product bean : beans) {
+                Product product = bean;
+                String stringBuilder = product.getPole1() + ";" +
+                        product.getOriginalUid() + ";" +
+                        product.getUid() + ";" +
+                        product.getTitle() + ";" +
+                        product.getName() + ";" +
+                        product.getDescription() + ";" +
+                        product.getSessionLanguage() + ";" +
+                        product.getSessionCurrency() + ";" +
+                        product.getGroups() + ";" +
+                        product.getPassword() + ";" +
+                        product.getCustomerID() + ";";
+                writer.write(stringBuilder);
+                writer.write(System.lineSeparator());
+            }
             writer.close();
             System.out.println(fileName + " successfully");
-        } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

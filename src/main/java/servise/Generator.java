@@ -15,30 +15,23 @@ public class Generator {
         List<Product> productList = new ArrayList<>();
 
         Random random = new Random();
-        int listSize = random.nextInt(maxSize+1);
 
-        for (int i = 0; i < listSize; i++) {
 
-            int randomAdd = random.nextInt(i+1);
-            String name = "nameOfProduct"+randomAdd;
+        for (int i = 0; i < maxSize; i++) {
 
-            randomAdd = random.nextInt(i+1);
-            String condition = "conditionOfProduct" + randomAdd;
+            String temp = " +7980524" + String.format("%04d", random.nextInt(10000));
 
-            randomAdd = random.nextInt(i+1);
-            String state = "stateOfProduct" + randomAdd;
-
-            float price = (float) (Math.random() * 5000);
-
-            productList.add(new Product(i+1,name,condition,state,price));
+            productList.add(new Product(" ", temp, temp," mr"," Нагрузочник Нагрузов",
+                    " Нагрузочный пользователь", " ru", " RUB",
+                    " $customergroup", " ", temp ));
         }
         return productList;
     }
 
-    // В один поток, при мультизаписи скорость падает на 30%
+
     public static void multiGen(int n, int maxSize, String dirName){
         for (int i = 0; i < n; i++) {
-            String fileName = "data"+ i +".csv";
+            String fileName = "users"+ i +".impex";
             dataOutput(dirName,fileName,generateData(maxSize));
         }
     }

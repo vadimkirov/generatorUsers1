@@ -13,7 +13,7 @@ public class Main {
         System.out.print("Введите количество файлов:");
         int n = Integer.parseInt(sc.next());
 
-        System.out.print("Введите максимальное количество ЭЛЕМЕНТОВ в файле:");
+        System.out.print("Введите максимальное количество ЭЛЕМЕНТОВ в каждом файле:");
         int itemsSize = Integer.parseInt(sc.next());
 
 
